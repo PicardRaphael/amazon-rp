@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { getItemsCartState } from '../../../store/slices/cartSlice'
 import { useSelector } from '../../../store/store'
+import Flags from '../../Flags/Flags'
 
 const Header = () => {
   const { t } = useTranslation('header')
@@ -17,9 +18,9 @@ const Header = () => {
 
   return (
     <header>
-      <div className="max-h-[60px] flex items-center bg-amazon_blue flex-grow">
+      <div className="max-h-[60px] flex items-center bg-amazon_blue ">
         {/* Logo */}
-        <div className="md:ml-[15px] flex items-center flex-grow-0 h-auto">
+        <div className="md:ml-[15px] flex items-center h-auto">
           <Link href="/">
             <a className="link pb-0 pt-px pr-1.5 md:pr-2 pl-[6px] flex items-center md:mr-1.5 h-[50px]">
               <div className="relative w-[97px] h-[30px]">
@@ -46,6 +47,9 @@ const Header = () => {
         </div>
         {/* Right */}
         <div className="text-white flex items-center text-xs space-x-1 md:space-x-6 md:mx-6 whitespace-nowrap">
+          <div className="hidden md:flex flex-col">
+            <Flags />
+          </div>
           <div onClick={handleAuth} className="link">
             <p className="leading-[15px]">
               {session?.user
@@ -97,6 +101,9 @@ const Header = () => {
         <p className="link p-1 my-1">Prime Video</p>
         <p className="link p-1 my-1">{t('amazonBusines')}</p>
         <p className="link p-1 my-1">{t('todayDeals')}</p>
+        <div className="flex md:hidden flex-col items-center">
+          <Flags />
+        </div>
         <p className="link p-1 my-1 hidden lg:inline-flex">{t('buyAgain')}</p>
         <p className="link p-1 my-1 hidden lg:inline-flex">{t('videoGames')}</p>
         <p className="link p-1 my-1 hidden lg:inline-flex">{t('software')}</p>

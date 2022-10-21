@@ -43,7 +43,7 @@ const Checkout: NextPageWithLayout = () => {
   }
 
   return (
-    <div className="bg-gray-100 flex">
+    <div className="bg-gray-100 flex flex-col md:flex-row">
       {/* Left */}
       <div className="flex-grow m-5 shadow-sm">
         <Image
