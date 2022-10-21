@@ -5,6 +5,7 @@ import { getStaticPropsTranslations } from '../utils/i18n'
 import Banner from '../components/banner/Banner'
 import ProductFeed from '../components/productFeed/ProductFeed'
 import type { Product } from '../types/product.type'
+import { GetServerSideProps } from 'next'
 
 type HomeProps = {
   products: Product[]
@@ -28,14 +29,14 @@ export default Home
 
 Home.getLayout = (page) => <PrimaryLayout>{page}</PrimaryLayout>
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const products: Product[] = await fetch(
     'https://fakestoreapi.com/products'
   ).then((res) => res.json())
   return {
     props: {
       products,
-      ...(await getStaticPropsTranslations(locale)),
+      ...(await getStaticPropsTranslations(ctx.locale as string)),
     },
   }
 }

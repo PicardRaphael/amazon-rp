@@ -20,10 +20,10 @@ const Checkout: NextPageWithLayout = () => {
   const { data: session } = useSession()
 
   const handleToCheckout = () => {
-    !session ? signIn() : ceateCheckoutSession()
+    !session ? signIn() : createCheckoutSession()
   }
 
-  const ceateCheckoutSession = async () => {
+  const createCheckoutSession = async () => {
     const stripe = await stripePromise
     const email = session?.user?.email
 

@@ -4,9 +4,19 @@ import { getStaticPropsTranslations } from '../utils/i18n'
 import { CheckCircleIcon } from '@heroicons/react/solid'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { GetServerSideProps } from 'next'
+import { clearResults } from '../store/slices/cartSlice'
+import { useEffect } from 'react'
+import { useDispatch } from '../store/store'
 
 const Success: NextPageWithLayout = () => {
   const { t } = useTranslation('success')
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(clearResults())
+  }, [dispatch])
+
   return (
     <div className="bg-gray-100 h-screen">
       <div className="flex flex-col p-10 bg-white">
@@ -27,10 +37,18 @@ export default Success
 
 Success.getLayout = (page) => <PrimaryLayout>{page}</PrimaryLayout>
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  if (!ctx.query.hasOwnProperty('session_id')) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   return {
     props: {
-      ...(await getStaticPropsTranslations(locale)),
+      ...(await getStaticPropsTranslations(ctx.locale as string)),
     },
   }
 }

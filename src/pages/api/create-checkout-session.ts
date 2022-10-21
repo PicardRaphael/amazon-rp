@@ -65,7 +65,7 @@ export default async function handler(
           allowed_countries: ['FR', 'US', 'GB'],
         },
         mode: 'payment',
-        success_url: `${process.env.HOST}/success`,
+        success_url: `${process.env.HOST}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.HOST}/cart`,
         metadata: {
           email,
@@ -75,7 +75,6 @@ export default async function handler(
 
       const checkoutSession: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create(paramsCheckoutSessions)
-
       res.status(200).json({ id: checkoutSession.id })
     } catch (err) {
       res.status(500).json({ statusCode: 500, message: err.message })

@@ -1,4 +1,9 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import {
+  combineReducers,
+  configureStore,
+  Reducer,
+  AnyAction,
+} from '@reduxjs/toolkit'
 import {
   useDispatch as useDispatchBase,
   useSelector as useSelectorBase,
@@ -12,9 +17,19 @@ const persistConfig = {
   key: 'root',
   storage,
 }
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   cart: cartSlice,
 })
+
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+  if (action.type === 'cart/clearResults') {
+    storage.removeItem('persist:root')
+
+    state = {} as RootState
+  }
+  return appReducer(state, action)
+}
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

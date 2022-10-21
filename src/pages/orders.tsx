@@ -8,7 +8,7 @@ import Stripe from 'stripe'
 import { db } from '../../firebase'
 import moment from 'moment'
 import { Order as OrderType } from '../types/order.type'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import Order from '../components/Order/Order'
 import { GetServerSideProps } from 'next'
 
@@ -65,7 +65,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     `${session.user?.email}`,
     'orders'
   )
-  const collectioSnap = await getDocs(collectionRef)
+  const collectionQuery = query(
+    collectionRef,
+    orderBy('timestamp', 'desc'),
+    limit(100)
+  )
+  const collectioSnap = await getDocs(collectionQuery)
   const orders = await Promise.all(
     collectioSnap.docs.map(async (order) => ({
       id: order.id,

@@ -19,6 +19,9 @@ export const cartSlice = createSlice({
     ) => {
       state.items = [...state.items, action.payload]
     },
+    clearResults: () => {
+      console.log('Clear')
+    },
     removeFromCart: (
       state: Draft<typeof initialState>,
       action: PayloadAction<{ id: number }>
@@ -42,7 +45,7 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, clearResults } = cartSlice.actions
 
 export const getItemsCartState = (state: { cart: CartState }) =>
   state.cart.items
