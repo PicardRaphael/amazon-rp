@@ -1,7 +1,7 @@
 {
   "shoppingCartEmpty": "Your Amazon Cart is empty.",
   "shoppingCart": "Shopping Cart",
-  "total": "Sous-total",
+  "total": "Subtotal",
   "item": "item",
   "checkout": "Proceed to checkout"
 }

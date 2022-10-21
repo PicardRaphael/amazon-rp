@@ -2,7 +2,7 @@
   "yourOrders": "Vos Commandes",
   "orders": "Commande",
   "signInOrders": "Veuillez vous connecter pour voir vos commandes",
-  "orderPlaced": "Commande effectuée le",
+  "orderPlace": "Commande effectuée le",
   "total": "Total",
   "orderNumber": "N° de commande",
   "items": "Article"
