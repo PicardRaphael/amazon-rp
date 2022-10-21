@@ -23,7 +23,7 @@ const Flags = () => {
       <button onClick={handleDisplay} className="hover:scale-125 mt-1 md:mt-0">
         <Image
           alt={router.locale}
-          src={Flag[router.locale as string]}
+          src={Flag[router.locale as keyof typeof Flag]}
           height={25}
           width={25}
           objectFit="contain"
@@ -37,7 +37,7 @@ const Flags = () => {
                 <button onClick={() => handleChangeLang(local)}>
                   <Image
                     alt={local}
-                    src={Flag[local as string]}
+                    src={Flag[local as keyof typeof Flag]}
                     height={25}
                     width={25}
                     objectFit="contain"
